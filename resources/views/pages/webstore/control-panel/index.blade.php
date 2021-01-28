@@ -19,7 +19,7 @@
                     <div class="grid grid-cols-2 mb-5 lg:mb-2 lg:mr-7 gap-2 md:gap-4">
                         {{-- Product categories --}}
                         <div class="col-span-3 md:col-span-1">
-                            <a href="/{{ $webstore[0]->url }}/categories">
+                            <a href="/{{ $webstore[0]->id }}/categories">
                                 <div class="bg-white rounded-md shadow-md p-5 h-full hover:bg-pink-100 hover:">
                                     <div class="flex mb-2 w-full">
                                         <div class="max-w-max"><i
@@ -39,7 +39,7 @@
 
                         {{-- Product Items --}}
                         <div class="col-span-3 md:col-span-1">
-                            <a href="/{{ $webstore[0]->url }}/products">
+                            <a href="/{{ $webstore[0]->id }}/products">
                                 <div class="bg-white rounded-md shadow-md p-5 h-full hover:bg-primary-100 hover:">
                                     <div class="flex mb-2">
                                         <div class="max-w-max"><i
@@ -59,7 +59,7 @@
 
                         {{-- Reviews --}}
                         <div class="col-span-3 md:col-span-1">
-                            <a href="/{{ $webstore[0]->url }}/reviews">
+                            <a href="/{{ $webstore[0]->id }}/reviews">
                                 <div class="bg-white rounded-md shadow-md p-5 h-full hover:bg-yellow-100 hover:">
                                     <div class="flex mb-2">
                                         <div class="max-w-max"><i
@@ -79,7 +79,7 @@
 
                         {{-- Statistics --}}
                         <div class="col-span-3 md:col-span-1">
-                            <a href="/{{ $webstore[0]->url }}/statistics">
+                            <a href="/{{ $webstore[0]->id }}/statistics">
                                 <div class="bg-white rounded-md shadow-md p-5 h-full hover:bg-secondary-100 hover:">
                                     <div class="flex mb-2">
                                         <div class="max-w-max"><i
@@ -89,7 +89,7 @@
                                             <h3 class="font-bold text-lg">Statistics <i
                                                     class="fas fa-angle-right float-right mt-2"></i> </h3>
                                             <div class="text-dark-400 text-sm">
-                                                See statistics about your site performance and traffic reports
+                                                See statistics about your store performance and traffic reports
                                             </div>
                                         </div>
                                     </div>
@@ -99,7 +99,7 @@
 
                         {{-- Settings --}}
                         <div class="col-span-3 md:col-span-1">
-                            <a href="/{{ $webstore[0]->url }}/settings">
+                            <a href="/{{ $webstore[0]->id }}/settings">
                                 <div class="bg-white rounded-md shadow-md p-5 h-full hover:bg-green-100 hover:">
                                     <div class="flex mb-2">
                                         <div class="max-w-max"><i
@@ -119,7 +119,7 @@
 
                         {{-- Support center --}}
                         <div class="col-span-3 md:col-span-1">
-                            <a href="/{{ $webstore[0]->url }}/support">
+                            <a href="/{{ $webstore[0]->id }}/support">
                                 <div class="bg-white rounded-md shadow-md p-5 h-full hover:bg-blue-100 hover:">
                                     <div class="flex mb-2">
                                         <div class="max-w-max"><i

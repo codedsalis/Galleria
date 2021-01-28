@@ -1,12 +1,4 @@
 <div>
-    {{-- Check to see that the right user has access to this page otherwise show a 404
-    page --}}
-    @foreach ($webstore as $store)
-        @if ($store->user_id != auth()->id())
-            {{ abort(404) }}
-        @endif
-    @endforeach
-
     <div class="text-left font-roboto p-4 text-dark-500 mt-3">
         <h2 class="text-3xl font-bold">
             <i class="fas fa-tools text-primary-500"></i> Setting up your Webstore
@@ -15,26 +7,6 @@
             Upload a logo for your business
         </p>
     </div>
-    {{-- <x-form-layout submit="savePhoto">
-        <div class="col-span-6 sm:col-span-6">
-            <x-jet-input id="photo" type="file" wire:model="photo" required />
-            <x-jet-input-error for="photo" class="mt-2" />
-        </div>
-
-        <br />
-        <div class="flex justify-end w-full">
-            <div class="py-4 px-5">
-                {{-- {{ $message }} --}}
-                {{--
-            </div>
-            <div class="px-5 py-3">
-                <x-jet-button wire:loading.attr="disabled" wire:target="photo">
-                    {{ __('Upload') }}
-                </x-jet-button>
-            </div>
-        </div>
-    </x-form-layout> --}}
-
 
     @if (session()->has('logoMessage'))
         <div class="flex justify-end">
@@ -78,7 +50,7 @@
                         <div class="py-4 px-5">
                         </div>
                         <div class="px-5 py-3">
-                            <x-button wire:loading.attr="disabled" wire:target="photo">
+                            <x-button target="savePhoto">
                                 {{ __('Upload') }}
                             </x-button>
                         </div>
@@ -91,14 +63,11 @@
     <br />
     <div class="flex justify-end">
         <div class="mr-3">
-            @foreach ($webstore as $store)
-                <a href="/{{ $store->url }}/dashboard?utm_source=setup&utm_medium=skiplogouploadbutton">
-                    <button
-                        class="button-secondary px-5 py-3 rounded-md shadow-md focus:outline-none focus:ring text-xs">
-                        {{ _('Skip') }}
-                    </button>
-                </a>
-            @endforeach
+            <a href="/{{ $webstore->id }}/controlpanel?utm_source=setup&utm_medium=skiplogouploadbutton">
+                <button class="button-secondary px-5 py-3 rounded-md shadow-md focus:outline-none focus:ring text-xs">
+                    {{ _('Skip') }}
+                </button>
+            </a>
         </div>
     </div>
 </div>
@@ -114,7 +83,7 @@
         }, 3500);
 
         setTimeout(function() {
-            window.location.replace('/' + event.detail.webStore + '/dashboard');
+            window.location.replace('/' + event.detail.webstoreId + '/controlpanel');
         }, 900);
     })
 

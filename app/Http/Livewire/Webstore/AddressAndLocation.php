@@ -49,7 +49,7 @@ class AddressAndLocation extends Component
             session()->flash("webstoreCreationMessage", "Webstore creation successful");
             
             // Create a browser event
-            $this->dispatchBrowserEvent('webstoreCreated', ['webStore' => $this->username]);
+            $this->dispatchBrowserEvent('webstoreCreated', ['webstoreId' => $webstore->id]);
         }
     }
 

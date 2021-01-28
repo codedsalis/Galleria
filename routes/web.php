@@ -45,6 +45,12 @@ Route::group(['domain' => 'app.galleria.ng'], function () {
             App\Http\Controllers\Web\WebstoreController::class,
             'categories'
         ]);
+
+        // Webstore Products items
+        Route::middleware(['auth:sanctum', 'verified'])->get('/products', [
+        App\Http\Controllers\Web\WebstoreController::class,
+        'products'
+        ]);
     });
 });
 

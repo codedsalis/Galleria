@@ -80,7 +80,7 @@
                                 --}}
                             </div>
                             <div class="px-5 py-3">
-                                <x-button wire:loading.attr="disabled">
+                                <x-button wire:loading.attr="disabled" target="submit">
                                     {{ __('Create') }}
                                 </x-button>
                             </div>
@@ -103,7 +103,7 @@
         }, 3500);
 
         setTimeout(function() {
-            window.location.replace('/webstore/' + event.detail.webStore + '/setup');
+            window.location.replace('/webstore/' + event.detail.webstoreId + '/setup');
         }, 900);
     })
 

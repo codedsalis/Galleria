@@ -10,6 +10,38 @@ use Illuminate\Support\Facades\DB;
 
 class WebstoreController extends Controller
 {
+    /**
+     * Check if the webstore exists and whether the user 
+     * requesting to modify contents is the owner, returns bool or array of data
+     * 
+     * @var int $webstoreId
+     * @return bool
+     */
+    protected function isWebstoreAndOwner(int $webstoreId, bool $data = NULL) {
+        // Check if store exist
+        if($data) {
+            $findStore = DB::table('webstores')
+                ->select('*')
+                ->where('id', '=', $webstoreId)
+                ->where('user_id', '=', Auth::id())
+                ->get();
+            if (count($findStore) > 0) {
+                return $findStore;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            $findStore = DB::table('webstores')
+                ->select('id')
+                ->where('id', '=', $webstoreId)
+                ->where('user_id', '=', Auth::id())
+                ->get();
+            return count($findStore) > 0 ? true : false;
+        }
+    }
+
     //create a new webstore
     public function new () {
         return view('pages.webstore.create');
@@ -17,17 +49,6 @@ class WebstoreController extends Controller
 
 
     public function webstore($webstore) {
-        // $reserved = [
-        //     'dashboard',
-        //     'register',
-        //     'login',
-        // ];
-
-        // if(in_array($webstore, $reserved)) {
-        //     header("location: http://localhost:8000/i/$webstore");
-        //     exit;
-        // }
-
         $get = Webstore::where('url', $webstore)->get();
         echo $get;
     }
@@ -37,13 +58,13 @@ class WebstoreController extends Controller
      * The set up page to help the user finish setting up his webstore
      * 
      */
-    public function setup($url) {
-        $findUrl = Webstore::where('url', $url)
-            ->get();
+    public function setup($webstoreId) {
+        $findStore = $this->isWebstoreAndOwner($webstoreId, true);
 
-        if(count($findUrl) > 0 && $findUrl[0]->user_id == Auth::id()) {
-            return view('pages.webstore.setup')->with('webstore', $findUrl);
-        } else {
+        if ($findStore) {
+            return view('pages.webstore.setup')->with('webstore', $findStore);
+        } 
+        else {
             \abort(404);
         }
     }
@@ -52,20 +73,13 @@ class WebstoreController extends Controller
     /**
      * Control panel for logged in webstore owner
      */
-    public function controlPanel($webstore) {
-
-        // Check if the webstore url exists
-        $findStore = DB::table('webstores')
-            ->select('*')
-            ->where('url', '=', $webstore)
-            ->get();
+    public function controlPanel($webstoreId) {
+        $findStore = $this->isWebstoreAndOwner($webstoreId, true);
         
-        // If it does and the logged in user is the owner, allow the request
-        if(count($findStore) > 0 && $findStore[0]->user_id == Auth::id()) {
+        if($findStore) {
             return view('pages.webstore.control-panel.index')->with('webstore', $findStore);
-        } else {
-        
-            // Otherwise return a 404 page
+        }
+        else {
             \abort(404);
         }
     }
@@ -73,28 +87,31 @@ class WebstoreController extends Controller
     /**
      * Webstore product categories
      */
-    public function categories($webstore) {
-        // Check if store exist
-        $findStore = DB::table('webstores')
-        ->select('*')
-        ->where('url', '=', $webstore)
-        ->get();
-
-        // If it exists and the logged in user is the owner,
-        // query for it's categories and return the page
-        if(count($findStore) > 0) {
-            $findCategory = DB::table('product_categories')
-                ->select('*')
-                ->where('webstore_id', '=', $webstore)
-                ->get();
-                
-                return view('pages.webstore.control-panel.categories', [
-                    'webstore' => $findStore,
-                    'categories' => $findCategory,
-                    ]);
+    public function categories($webstoreId) {
+        $findStore = $this->isWebstoreAndOwner($webstoreId, true);
+        if ($findStore) {
+            return view('pages.webstore.control-panel.categories', [
+                'webstore' => $findStore,
+                // 'categories' => $findCategory,
+            ]);
         }
         else {
-            // Return a 404 page if store doesn't exist or it's not the owner
+            \abort(404);
+        }
+    }
+
+
+    /**
+     * Upload, create, edit, update and delete product items
+     */
+    public function products($webstoreId) {
+        $findStore = $this->isWebstoreAndOwner($webstoreId, true);
+        if ($findStore) {
+            return view('pages.webstore.control-panel.products', [
+                'webstore' => $findStore,
+            ]);
+        }
+        else {
             \abort(404);
         }
     }

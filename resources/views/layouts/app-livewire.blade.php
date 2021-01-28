@@ -60,7 +60,7 @@
                 </div>
             </div>
 
-            <div class="bg-gray-100 md:w-4/5">
+            <div class="py-6 md:py-12 bg-gray-100 md:w-4/5">
                 <!-- Page Heading -->
                 <div class="bg-gray-100 max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8 mt-14">
                     <h2 class="font-semibold text-3xl text-dark-500 leading-normal">

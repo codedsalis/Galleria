@@ -21,7 +21,7 @@ class Setup extends Component
 
         $this->validate();
 
-        foreach($this->webstore as $store) {
+        // foreach($this->webstore as $store) {
             // Get file name
             $fileName = $this->photo->getClientOriginalName();
 
@@ -29,18 +29,18 @@ class Setup extends Component
             // different name while maintaining the original file extension
             $extension = explode('.', $fileName);
 
-            $this->photo->storeAs('logo', $store->url . '.' . $extension[1]);
+            $this->photo->storeAs('logo', $this->webstore->url . '.' . $extension[1]);
 
             // Save the uploaded file name to the database
-            $Webstore = Webstore::findOrFail($store->id);
-            $Webstore->logo = $store->url . '.' . $extension[1];
+            $Webstore = Webstore::findOrFail($this->webstore->id);
+            $Webstore->logo = $this->webstore->url . '.' . $extension[1];
             
             if($Webstore->save()) {
                 session()->flash('logoMessage', 'Logo uploaded successfully');
 
-                $this->dispatchBrowserEvent('logoUploaded', ['webStore' => $store->url]);
+                $this->dispatchBrowserEvent('logoUploaded', ['webstoreId' => $this->webstore->id]);
             }
-        }
+        // }
 
     }
 

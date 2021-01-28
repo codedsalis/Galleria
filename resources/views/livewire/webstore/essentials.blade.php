@@ -49,7 +49,7 @@
                                 {{-- {{ $message }} --}}
                             </div>
                             <div class="px-5 py-3">
-                                <x-button>
+                                <x-button target="submitEssentials">
                                     {{ __('Next') }}
                                 </x-button>
                             </div>
