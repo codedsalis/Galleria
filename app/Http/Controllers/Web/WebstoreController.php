@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Webstore;
+use App\Models\ProductCategory;
+use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -104,11 +106,21 @@ class WebstoreController extends Controller
     /**
      * Upload, create, edit, update and delete product items
      */
-    public function products($webstoreId) {
+    public function products($webstoreId, Request $request) {
         $findStore = $this->isWebstoreAndOwner($webstoreId, true);
         if ($findStore) {
+            // $products = Product::where('webstore_id', $findStore[0]->id)
+            //     ->orderBy('created_at', 'desc')
+            //     ->paginate(15);
+
+            $categories = ProductCategory::where('webstore_id', $findStore[0]->id)
+                ->get();
+
             return view('pages.webstore.control-panel.products', [
                 'webstore' => $findStore,
+                'categories' => $categories,
+                // 'products' => $products,
+                'request' => $request,
             ]);
         }
         else {

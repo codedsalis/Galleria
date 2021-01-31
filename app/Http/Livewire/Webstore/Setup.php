@@ -29,7 +29,7 @@ class Setup extends Component
             // different name while maintaining the original file extension
             $extension = explode('.', $fileName);
 
-            $this->photo->storeAs('logo', $this->webstore->url . '.' . $extension[1]);
+            $this->photo->storeAs($this->webstore->id,  'logo.' . $extension[1], 'media');
 
             // Save the uploaded file name to the database
             $Webstore = Webstore::findOrFail($this->webstore->id);
@@ -38,7 +38,7 @@ class Setup extends Component
             if($Webstore->save()) {
                 session()->flash('logoMessage', 'Logo uploaded successfully');
 
-                $this->dispatchBrowserEvent('logoUploaded', ['webstoreId' => $this->webstore->id]);
+               $this->dispatchBrowserEvent('logoUploaded', ['webstoreId' => $this->webstore->id]);
             }
         // }
 

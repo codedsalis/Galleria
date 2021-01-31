@@ -19,9 +19,11 @@ class CreateProductsTable extends Migration
             $table->foreign('webstore_id')->references('id')->on('webstores')->onDelete('cascade');
             $table->string('name', 250);
             $table->text('description');
-            $table->string('product_category', 50);
-            $table->integer('price'); // price is in kobo
+            $table->integer('category_id')->unsigned();
+            $table->foreign('category_id')->references('id')->on('product_categories')->onDelete('cascade');
+            $table->integer('price')->unsigned(); // price is in kobo
             $table->integer('discount_price'); // discount_price is in kobo
+            $table->tinyInteger('is_in_stock', false, true)->default(0);
             $table->string('images');
             $table->timestamps();
         });

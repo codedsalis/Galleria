@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Webstore\ControlPanel;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\ProductCategory;
+use App\Library\Galleria;
 
 class ProductCategories extends Component
 {
@@ -49,7 +50,7 @@ class ProductCategories extends Component
     public $webstoreId;
 
     /**
-     * The name of the new categories being created
+     * The name of the new category being created
      */
     public $name;
 
@@ -102,10 +103,13 @@ class ProductCategories extends Component
         ]);
 
         $category = ProductCategory::findOrFail($this->managingCategoryFor);
+        
+        $galleria = new Galleria();
+        $slug = $galleria->makeSlug($this->nameUpdate, '-', 'product_categories');
 
         $category->name = $this->nameUpdate;
         $category->description = $this->descriptionUpdate;
-        $category->slug = $this->makeSlug($this->nameUpdate);
+        $category->slug = $slug;
 
         $category->save();
 
@@ -116,7 +120,18 @@ class ProductCategories extends Component
     public function createCategory($id = NULL) {
         $this->validate();
 
-        $slug = $this->makeSlug($this->name);
+        $galleria = new Galleria();
+        $slug = $galleria->makeSlug($this->name, '-', 'product_categories');
+        
+        // // Check if slug already exists
+        // $checkSlug = ProductCategory::where('slug', $slug)
+        //     ->where('webstore_id', $this->webstoreId)
+        //     ->get();
+
+        // // If slug already exists, add the current timestamp to it
+        // if(count($checkSlug) > 0) {
+        //     $slug = $slug . '-' . time();
+        // }
 
         $category = $id ? ProductCategory::findOrFail($id) : new ProductCategory;
 
@@ -172,35 +187,35 @@ class ProductCategories extends Component
     }
 
 
-    /**
-     * Create a slug by replacing spaces with dashes
-     * 
-     * @var String $name
-     * @return String
-     */
-    protected function makeSlug(String $name) : String {
-        // Strip the name of any tags after trimming it
-        $name = strip_tags(trim($name));
+    // /**
+    //  * Create a slug by replacing spaces with dashes
+    //  * 
+    //  * @var String $name
+    //  * @return String
+    //  */
+    // protected function makeSlug(String $name) : String {
+    //     // Strip the name of any tags after trimming it
+    //     $name = strip_tags(trim($name));
 
-        // Replace a comma if any
-        $name = str_replace(',', '', $name);
+    //     // Replace a comma if any
+    //     $name = str_replace(',', '', $name);
 
-        // Split into an array using white space as a delimiter
-        $split = \explode(' ', $name);
+    //     // Split into an array using white space as a delimiter
+    //     $split = \explode(' ', $name);
 
-        // Get the first part of the array and add a 
-        // dash to it if the array is of larger size than zero
-        $slug = count($split) > 1 ? strtolower($split[0]) . '-' : strtolower($split[0]);
+    //     // Get the first part of the array and add a 
+    //     // dash to it if the array is of larger size than zero
+    //     $slug = count($split) > 1 ? strtolower($split[0]) . '-' : strtolower($split[0]);
 
-        // Loop through the array for subsequent keys and add dashes 
-        // as long as the iteration is less than the total size of the 
-        // array while converting all letters to lower case letters
-        for ($i = 1; $i < count($split); $i++) {
-            $slug .=(count($split)-1)==$i ? strtolower($split[$i]) :
-            strtolower($split[$i]) . '-' ;
-        }
-        return $slug;
-    }
+    //     // Loop through the array for subsequent keys and add dashes 
+    //     // as long as the iteration is less than the total size of the 
+    //     // array while converting all letters to lower case letters
+    //     for ($i = 1; $i < count($split); $i++) {
+    //         $slug .=(count($split)-1)==$i ? strtolower($split[$i]) :
+    //         strtolower($split[$i]) . '-' ;
+    //     }
+    //     return $slug;
+    // }
 
 
     public function render()
