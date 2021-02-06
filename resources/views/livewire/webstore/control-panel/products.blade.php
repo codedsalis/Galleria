@@ -69,7 +69,7 @@
                         </thead>
                         <tbody>
                             @foreach ($products as $product)
-                                <tr class="text-dark-400 hover:bg-gray-50">
+                                <tr class="border-b border-gray-200 md:border-gray-100 text-dark-400 hover:bg-gray-50">
                                     <td class="px-3 py-3" title="{{ $product->name }}">
                                         <a class="text-secondary-500 hover:text-secondary-400 hover:underline"
                                             href="/{{ $webstoreId }}/product/{{ $product->id }}?utm_ref=productitem&utm_medium=productitemdatatable">{{ strlen($product->name) > 20 ? substr($product->name, 0, 18) . '...' : $product->name }}</a>
