@@ -45,8 +45,8 @@
                             <!-- Product price -->
                             <div class="col-span-6 sm:col-span-3">
                                 <x-jet-label for="price" value="{{ __('Price') }}" />
-                                <x-jet-input id="price" type="number" inputmode="numeric" class="block w-full mt-1"
-                                    wire:model.defer="price" required />
+                                <x-jet-input id="price" type="tel" inputmode="numeric" class="block w-full mt-1"
+                                    wire:model.lazy="price" required />
                                 <x-hint value="How much are you selling this product in naira? (Input only numbers)" />
                                 <x-jet-input-error for="price" class="mt-2" />
                             </div>
@@ -54,8 +54,8 @@
                             <!-- Discount price -->
                             <div class="col-span-6 sm:col-span-3">
                                 <x-jet-label for="discountPrice" value="{{ __('Discount Price') }}" />
-                                <x-jet-input id="discountPrice" type="number" inputmode="numeric"
-                                    class="block w-full mt-1" wire:model.defer="discountPrice" />
+                                <x-jet-input id="discountPrice" type="tel" inputmode="numeric" class="block w-full mt-1"
+                                    wire:model.lazy="discountPrice" />
                                 <x-hint
                                     value="If you have any discount price for the product, add it here. It becomes the new price of the product and the actual price will be displayed as a slashed price to your customers (input only numbers)" />
                                 <x-jet-input-error for="discountPrice" class="mt-2" />
@@ -110,7 +110,7 @@
                     </div>
                     <div class="flex justify-end w-full bg-gray-50">
                         <div class="px-5 py-3">
-                            <x-button wire:loading.attr="disabled" target="createProduct">
+                            <x-button target="createProduct">
                                 {{ __('Submit') }}
                             </x-button>
                         </div>

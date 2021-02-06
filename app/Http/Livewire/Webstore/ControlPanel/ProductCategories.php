@@ -99,7 +99,7 @@ class ProductCategories extends Component
      */
     public function updateCategory() {
         $this->validate([
-            'nameUpdate' => 'required|string|',
+            'nameUpdate' => 'required|string',
         ]);
 
         $category = ProductCategory::findOrFail($this->managingCategoryFor);
@@ -123,16 +123,6 @@ class ProductCategories extends Component
         $galleria = new Galleria();
         $slug = $galleria->makeSlug($this->name, '-', 'product_categories');
         
-        // // Check if slug already exists
-        // $checkSlug = ProductCategory::where('slug', $slug)
-        //     ->where('webstore_id', $this->webstoreId)
-        //     ->get();
-
-        // // If slug already exists, add the current timestamp to it
-        // if(count($checkSlug) > 0) {
-        //     $slug = $slug . '-' . time();
-        // }
-
         $category = $id ? ProductCategory::findOrFail($id) : new ProductCategory;
 
         $category->webstore_id = $this->webstoreId;

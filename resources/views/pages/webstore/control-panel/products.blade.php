@@ -7,7 +7,7 @@
     @endif
 
     @section('nav-links')
-        <h3 class="font-semibold tracking-widest text-dark-500 py-5 uppercase">Product Categories</h3>
+        <h3 class="py-5 font-semibold tracking-widest uppercase text-dark-500">Product Categories</h3>
         @if (count($categories) > 0)
             {{-- All categories --}}
             <a href="?allcategories" class="text-dark-500 hover:text-primary-500 focus:outline-none">
@@ -25,9 +25,9 @@
                 </a>
             @endforeach
         @else
-            <div class="flex flex-col justify-center items-center">
+            <div class="flex flex-col items-center justify-center">
                 <img src="/assets/no-data.png" width="200" height="auto" />
-                <p class="font-semibold tracking-widest text-dark-400 py-5">
+                <p class="py-5 font-semibold tracking-widest text-dark-400">
                     No categories created yet. <a
                         href="/{{ $webstore[0]->id }}/categories?utm_ref=productitems&utm_action=no_categories_found"
                         class="text-secondary-500 hover:text-secondary-400 focus:outline-none">Create
@@ -39,8 +39,8 @@
 
     @section('body')
         <!-- Page Heading -->
-        <div class="flex justify-between bg-gray-100 max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8 mt-14">
-            <h2 class="font-semibold text-3xl text-dark-500 leading-normal">
+        <div class="flex justify-between px-2 py-3 bg-gray-100 max-w-7xl md:px-6 lg:px-8 mt-14">
+            <h2 class="text-3xl font-semibold leading-normal text-dark-500">
                 {{ $request->intent == 'newitem' ? 'Add new product' : 'Products' }}
             </h2>
             {{-- If no newitem request --}}
@@ -66,7 +66,7 @@
                     :categories="$categories" />
             @else
                 <livewire:webstore.control-panel.products :webstoreId="$webstore[0]->id"
-                    :categoryId="$request->category ? $request->category : null" />
+                    :categoryId="$request->category ? $request->category : null" :products="$products" />
             @endif
 
         </div>

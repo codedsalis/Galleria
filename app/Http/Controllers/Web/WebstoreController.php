@@ -22,8 +22,7 @@ class WebstoreController extends Controller
     protected function isWebstoreAndOwner(int $webstoreId, bool $data = NULL) {
         // Check if store exist
         if($data) {
-            $findStore = DB::table('webstores')
-                ->select('*')
+            $findStore = Webstore::select('*')
                 ->where('id', '=', $webstoreId)
                 ->where('user_id', '=', Auth::id())
                 ->get();
@@ -35,8 +34,7 @@ class WebstoreController extends Controller
             }
         }
         else {
-            $findStore = DB::table('webstores')
-                ->select('id')
+            $findStore = Webstore::select('id')
                 ->where('id', '=', $webstoreId)
                 ->where('user_id', '=', Auth::id())
                 ->get();
@@ -109,9 +107,19 @@ class WebstoreController extends Controller
     public function products($webstoreId, Request $request) {
         $findStore = $this->isWebstoreAndOwner($webstoreId, true);
         if ($findStore) {
-            // $products = Product::where('webstore_id', $findStore[0]->id)
-            //     ->orderBy('created_at', 'desc')
-            //     ->paginate(15);
+            // If the request contains category then let's get products in that category
+            if($request->has('category')) {
+                $products = Product::where('webstore_id', $findStore[0]->id)
+                    ->where('category_id', $request->category)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(15);
+            }
+            else {
+                // Otherwise get all products in the webstore
+                $products = Product::where('webstore_id', $findStore[0]->id)
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(15);
+            }
 
             $categories = ProductCategory::where('webstore_id', $findStore[0]->id)
                 ->get();
@@ -119,7 +127,7 @@ class WebstoreController extends Controller
             return view('pages.webstore.control-panel.products', [
                 'webstore' => $findStore,
                 'categories' => $categories,
-                // 'products' => $products,
+                'products' => $products,
                 'request' => $request,
             ]);
         }

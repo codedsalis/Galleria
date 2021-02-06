@@ -79,6 +79,14 @@ class AddNewItem extends Component
         'images.*' => 'required|image|mimes:png,jpg,gif,jpeg|max:1024',
     ];
 
+
+    /**
+     * Validate the price field
+     */
+    public function updated($price) {
+        $this->validateOnly($price);
+    }
+
     /**
      * Validate $this->images once it is uploaded and before submission
      */
