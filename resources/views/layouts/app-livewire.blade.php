@@ -32,18 +32,18 @@
     <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 
-<body class="font-roboto antialiased">
+<body class="antialiased font-roboto">
     <x-jet-banner />
 
     <div class="min-h-screen bg-gray-100">
         @livewire('navigation-menu')
 
 
-        <div class="flex flex-col md:flex-row justify-around w-full">
-            <div class="bg-white md:w-1/5 mt-3">
+        <div class="flex flex-col justify-around w-full md:flex-row">
+            <div class="mt-3 bg-white md:w-1/5">
                 <div
-                    class="bg-white w-0 h-0 md:px-2 md:py-3 invisible md:visible md:w-1/5 md:mx-auto md:min-h-screen md:mt-14 fixed left-0 overflow-y-scroll">
-                    <div class="text-galleria-500 min-h-screen pl-8 hover:text-galleria-400">
+                    class="fixed left-0 invisible w-0 h-0 overflow-y-scroll bg-white md:px-2 md:py-3 md:visible md:w-1/5 md:mx-auto md:min-h-screen md:mt-14">
+                    <div class="min-h-screen pl-8 text-galleria-500 hover:text-galleria-400">
                         <div class="font-normal">
                             Navigation links should be made in longer and bigger
                         </div>
@@ -60,10 +60,10 @@
                 </div>
             </div>
 
-            <div class="py-6 md:py-12 bg-gray-100 md:w-4/5">
+            <div class="py-6 bg-gray-100 md:py-12 md:w-4/5">
                 <!-- Page Heading -->
-                <div class="bg-gray-100 max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8 mt-14">
-                    <h2 class="font-semibold text-3xl text-dark-500 leading-normal">
+                <div class="px-4 py-3 mx-auto bg-gray-100 max-w-7xl sm:px-6 lg:px-8 mt-14">
+                    <h2 class="text-3xl font-semibold leading-normal text-dark-500">
                         @yield('header')
                     </h2>
                 </div>

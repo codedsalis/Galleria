@@ -50,8 +50,10 @@ class Products extends Component
     /**
      * Update $this->limit
      */
-    public function updateLimit($value) {
-        $this->limit = $value;
+    public function updatedLimit($value) {
+        if($value) {
+            $this->limit = $value;
+        }
     }
 
 
@@ -62,6 +64,7 @@ class Products extends Component
 
     public function render()
     {
+        // $this->limit = $this->update
         $products = $this->readyToLoad ? Product::select('*')
             ->where('webstore_id', $this->webstoreId)
             ->paginate($this->limit) : [];

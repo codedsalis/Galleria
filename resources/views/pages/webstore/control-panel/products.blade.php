@@ -39,7 +39,7 @@
 
     @section('body')
         <!-- Page Heading -->
-        <div class="flex justify-between px-2 py-3 bg-gray-100 max-w-7xl md:px-6 lg:px-8 mt-14">
+        <div class="flex justify-between px-2 py-3 bg-gray-100 md:px-6 lg:px-8 mt-14">
             <h2 class="text-3xl font-semibold leading-normal text-dark-500">
                 {{ $request->intent == 'newitem' ? 'Add new product' : 'Products' }}
             </h2>

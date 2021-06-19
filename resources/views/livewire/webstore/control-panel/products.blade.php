@@ -25,8 +25,7 @@
                             </span>
                         </span>
                     </span>
-                    {{-- <span class="p-3 px-1">entries</span>
-                    --}}
+                    {{-- <span class="p-3 px-1">entries</span> --}}
                     <span class="col-span-3">
                         <span class="flex">
                             <span class="p-3 px-1 text-dark-500">Filter:</span>
